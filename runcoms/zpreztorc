@@ -41,9 +41,11 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'git' \
   'homebrew' \
+  'docker' \
   'osx' \
   'history-substring-search' \
   'node' \
+  'rails' \
   'ruby'
 
 #

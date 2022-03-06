@@ -35,7 +35,7 @@ export ECLIPSE_HOME="${HOME}/Applications/Eclipse.app/Contents/Eclipse"
 export ANDROID_HOME="${HOME}/projects/android/sdk"
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 export USE_CCACHE=1
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) --enable-install-doc --enable-install-capi --enable-install-doc --enable-shared"
 # export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-8.0/lib${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
 # export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
@@ -43,6 +43,9 @@ export CIV6_DIR="${HOME}/Library/Application Support/Sid Meier's Civilization VI
 export STEAM_LIBRARY="/Volumes/SSD3/SteamLibrary/steamapps"
 
 export MAKEFLAGS="-j8"
+
+# Make sure Xcode and clang know where to find the SDKROOT
+export SDKROOT=$(xcrun --show-sdk-path)
 
 typeset -gU cdpath fpath mailpath path
 
@@ -56,7 +59,7 @@ path=(
   ${HOME}/bin
   ${HOME}/.cargo/bin
   /usr/local/{bin,sbin,heroku/bin}
-  /Developer/NVIDIA/CUDA-8.0/bin
+  /Developer/NVIDIA/CUDA-10.2/bin
   $path
   ${JBOSS_HOME}/bin
   ${HOME}/Library/Developer
@@ -77,7 +80,7 @@ fpath=(
 )
 
 autoload gi ck2 ck3 clean-compiled-funcs signing-cert man mount-android umount-android \
-  name-dir pygless recompile-funcs take use-ruby
+  imperator name-dir pygless recompile-funcs take use-ruby
 
 [[ -x /usr/libexec/java_home ]] && export JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2>/dev/null)"
 [[ -f "${HOME}/.env" ]] && source "${HOME}/.env"
