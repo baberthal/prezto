@@ -29,11 +29,9 @@ zstyle ':prezto:load' zfunction 'zargs' 'zmv' 'zrecompile'
 
 if [[ "$(uname -s)" == "Linux" ]]; then
   os_modules=('pacman')
-  echo "${os_modules[@]}"
 else
   echo "on osx"
   os_modules=('homebrew' 'osx')
-  echo "${os_modules[@]}"
 fi
 
 # Set the Prezto modules to load (browse modules).
