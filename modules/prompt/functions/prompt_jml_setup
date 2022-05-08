@@ -198,7 +198,7 @@ function prompt_jml_setup {
 
   # Define prompts.
   #
-  PROMPT='%B%F{3}%n%b%f %F{6}${_prompt_jml_pwd}%(!. %B%F{1}#%f%b.) %f%b${_prompt_jml_devenv}%f%b'
+  PROMPT='%B%F{3}%n%b%f %F{7}@%f %B%F{4}%M%b%f %F{6}${_prompt_jml_pwd}%(!. %B%F{1}#%f%b.) %f%b${_prompt_jml_devenv}%f%b'
   PROMPT+=$'\n'
   PROMPT+='${editor_info[keymap]} '
   RPROMPT='${editor_info[overwrite]}%(?:: %F{3}'

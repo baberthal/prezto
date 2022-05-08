@@ -1,3 +1,5 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 export ZEXTRA_DIR="${ZEXTRA_DIR:=${HOME}/.zextra}"
 # [[ -s "${ZEXTRA_DIR}/env.zsh" ]] && source "$ZEXTRA_DIR/env.zsh"
 # [[ -s "${ZEXTRA_DIR}/directories.zsh" ]] && source "${ZEXTRA_DIR}/directories.zsh"
@@ -27,8 +29,6 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export KEYTIMEOUT=1
 
-export GOPATH=${HOME}/golang
-export GOROOT=/usr/local/opt/go/libexec
 export JBOSS_HOME=/usr/local/opt/jboss-as/libexec
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export ECLIPSE_HOME="${HOME}/Applications/Eclipse.app/Contents/Eclipse"
@@ -47,21 +47,27 @@ export MAKEFLAGS="-j8"
 # Make sure Xcode and clang know where to find the SDKROOT
 export SDKROOT=$(xcrun --show-sdk-path)
 
+# Hack to make local sqs work
+export AWS_ACCESS_KEY_ID="NA"
+export AWS_SECRET_ACCESS_KEY="NA"
+export AWS_REGION="us-west-2"
+
 typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that cd searches.
 # cdpath=(
 #   $cdpath
 # )
+#
 
 # Set the list of directories that Zsh searches for programs.
 path=(
   ${HOME}/bin
+  ${HOME}/.yarn/bin
+  ${HOME}/.config/yarn/global/node_modules/.bin
   ${HOME}/.cargo/bin
   /usr/local/{bin,sbin,heroku/bin}
-  /Developer/NVIDIA/CUDA-10.2/bin
   $path
-  ${JBOSS_HOME}/bin
   ${HOME}/Library/Developer
   ${GOPATH}/bin
   ${GOROOT}/bin
