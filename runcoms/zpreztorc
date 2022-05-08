@@ -27,6 +27,15 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Zsh functions to load (man zshcontrib).
 zstyle ':prezto:load' zfunction 'zargs' 'zmv' 'zrecompile'
 
+if [[ "$(uname -s)" == "Linux" ]]; then
+  os_modules=('pacman')
+  echo "${os_modules[@]}"
+else
+  echo "on osx"
+  os_modules=('homebrew' 'osx')
+  echo "${os_modules[@]}"
+fi
+
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
@@ -40,9 +49,8 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'prompt' \
   'git' \
-  'homebrew' \
   'docker' \
-  'osx' \
+  ${os_modules[@]} \
   'history-substring-search' \
   'node' \
   'rails' \

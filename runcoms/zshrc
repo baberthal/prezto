@@ -11,8 +11,8 @@ fi
 (( $+TMUX )) && unset zle_bracketed_paste
 
 # random aliases
-alias ivm='vim' # I DO THIS ALL THE FUCKING TIME
-alias iv='vi' # See above
+alias ivm='vim' # i do this all the time
+alias iv='vi' # see above
 # alias nest="nest -u j.morgan.lieberthal@gmail.com -p kbner7xL@"
 alias beg="RUBYOPT=\"-W0\" bundle exec guard"
 alias nr="repl.history"

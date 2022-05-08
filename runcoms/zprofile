@@ -1,4 +1,8 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if (( $+commands[brew] )); then
+  eval "$(brew shellenv)"
+elif [[ -x "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 export ZEXTRA_DIR="${ZEXTRA_DIR:=${HOME}/.zextra}"
 # [[ -s "${ZEXTRA_DIR}/env.zsh" ]] && source "$ZEXTRA_DIR/env.zsh"
@@ -35,7 +39,10 @@ export ECLIPSE_HOME="${HOME}/Applications/Eclipse.app/Contents/Eclipse"
 export ANDROID_HOME="${HOME}/projects/android/sdk"
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 export USE_CCACHE=1
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) --enable-install-doc --enable-install-capi --enable-install-doc --enable-shared"
+export RUBY_CONFIGURE_OPTS="--enable-install-doc --enable-install-capi --enable-install-doc --enable-shared"
+if (( $+commands[brew] )); then
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) $RUBY_CONFIGURE_OPTS"
+fi
 # export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-8.0/lib${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
 # export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
@@ -45,7 +52,9 @@ export STEAM_LIBRARY="/Volumes/SSD3/SteamLibrary/steamapps"
 export MAKEFLAGS="-j8"
 
 # Make sure Xcode and clang know where to find the SDKROOT
-export SDKROOT=$(xcrun --show-sdk-path)
+if (( $+commands[xcrun] )); then
+  export SDKROOT=$(xcrun --show-sdk-path)
+fi
 
 # Hack to make local sqs work
 export AWS_ACCESS_KEY_ID="NA"
@@ -80,10 +89,15 @@ path+=($(yarn global bin 2>/dev/null))
 fpath=(
   ${HOME}/.zextra/completions
   ${HOME}/.zextra/functions
-  $(brew --prefix)/share/zsh/functions
-  $(brew --prefix)/share/zsh/site-functions
   $fpath
 )
+
+if (( $+commands[brew] )); then
+fpath+=(
+  $(brew --prefix)/share/zsh/functions
+  $(brew --prefix)/share/zsh/site-functions
+)
+fi
 
 autoload gi ck2 ck3 clean-compiled-funcs signing-cert man mount-android umount-android \
   imperator name-dir pygless recompile-funcs take use-ruby
