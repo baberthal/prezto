@@ -23,8 +23,12 @@ export BROWSER='open'
 #   * `--nomru` ensures that the commit message is not added to the Most
 #     Recently Used file menu
 #   * `-c ...` ensures the terminal program gets focus after closing the window
-export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"'
-export VISUAL='mvim'
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  export VISUAL='mvim'
+  export GIT_EDITOR='mvim -f --nomru -c "au VimLeave * !open -a iTerm"'
+else
+  export VISUAL='vim'
+fi
 export EDITOR='vim'
 export PAGER='less'
 bindkey -v
@@ -33,12 +37,6 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export KEYTIMEOUT=1
 
-export JBOSS_HOME=/usr/local/opt/jboss-as/libexec
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
-export ECLIPSE_HOME="${HOME}/Applications/Eclipse.app/Contents/Eclipse"
-export ANDROID_HOME="${HOME}/projects/android/sdk"
-export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
-export USE_CCACHE=1
 export RUBY_CONFIGURE_OPTS="--enable-install-doc --enable-install-capi --enable-install-doc --enable-shared"
 if (( $+commands[brew] )); then
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) $RUBY_CONFIGURE_OPTS"
@@ -72,19 +70,15 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   ${HOME}/bin
-  ${HOME}/.yarn/bin
-  ${HOME}/.config/yarn/global/node_modules/.bin
-  ${HOME}/.cargo/bin
-  /usr/local/{bin,sbin,heroku/bin}
+  /usr/local/bin
   $path
-  ${HOME}/Library/Developer
-  ${GOPATH}/bin
-  ${GOROOT}/bin
   ${HOME}/.local/bin
 )
 
 # this is separate so we can use programs installed in /usr/local/bin
-path+=($(yarn global bin 2>/dev/null))
+if (( $+commands[yarn] )); then
+  path+=($(yarn global bin 2>/dev/null))
+fi
 
 fpath=(
   ${HOME}/.zextra/completions
