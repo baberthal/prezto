@@ -30,7 +30,6 @@ zstyle ':prezto:load' zfunction 'zargs' 'zmv' 'zrecompile'
 if [[ "$(uname -s)" == "Linux" ]]; then
   os_modules=('pacman')
 else
-  echo "on osx"
   os_modules=('homebrew' 'osx')
 fi
 
