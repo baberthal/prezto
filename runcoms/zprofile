@@ -14,7 +14,6 @@ unset zle_bracketed_paste
 
 export GL_ENABLE_DEBUG_ATTACH=1
 export PROJECT_HOME="${HOME}/projects"
-export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python3"
 export BROWSER='open'
 # Set up GIT_EDITOR so git can properly use mvim for commit messages.
 #
@@ -37,15 +36,14 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export KEYTIMEOUT=1
 
-export RUBY_CONFIGURE_OPTS="--enable-install-doc --enable-install-capi --enable-install-doc --enable-shared"
+export GPG_TTY=$(tty)
+
+export RUBY_CONFIGURE_OPTS="--enable-install-doc --enable-install-capi --enable-shared"
 if (( $+commands[brew] )); then
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) $RUBY_CONFIGURE_OPTS"
 fi
 # export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-8.0/lib${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
 # export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-
-export CIV6_DIR="${HOME}/Library/Application Support/Sid Meier's Civilization VI"
-export STEAM_LIBRARY="/Volumes/SSD3/SteamLibrary/steamapps"
 
 export MAKEFLAGS="-j8"
 
@@ -93,7 +91,7 @@ fpath+=(
 )
 fi
 
-autoload gi ck2 ck3 clean-compiled-funcs signing-cert man mount-android umount-android \
+autoload gi ck2 ck3 clean-compiled-funcs signing-cert mount-android umount-android \
   imperator name-dir pygless recompile-funcs take use-ruby
 
 [[ -x /usr/libexec/java_home ]] && export JAVA_HOME="$(/usr/libexec/java_home -v 1.8 2>/dev/null)"
