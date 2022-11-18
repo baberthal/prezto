@@ -12,12 +12,15 @@ export ZSH_ENABLE_COMPFIX=true
 # random aliases
 alias vim='nvim' # heresy, i know
 alias ivm='vim' # i do this all the time
+alias vi='nvim'
 alias iv='vi' # see above
 alias beg="RUBYOPT=\"-W0\" bundle exec guard"
 alias nr="repl.history"
 alias mux="$commands[tmuxinator]"
+alias music="vimpc"
 
 # directory aliases
+alias take='mkdcd'
 alias d='dirs -v | head -10'
 alias md='mkdir -p'
 alias rd=rmdir
@@ -37,6 +40,8 @@ alias tl='tmux list-sessions'
 alias tksv='tmux kill-server'
 alias tkss='tmux kill-session -t'
 
+alias getidf='. $HOME/esp/esp-idf/export.sh'
+
 unsetopt PUSHD_MINUS
 unsetopt AUTO_NAME_DIRS     # Don't set auto_name_dirs because it messes up prompts
 
@@ -45,13 +50,12 @@ if (( $+aliases[rdm] )); then
   unalias rdm
 fi
 
+if [[ -d "$(pyenv root 2>/dev/null)/plugins/pyenv-virtualenv" ]]; then
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
-function take {
-  mkdir -p $1
-  cd $1
-}
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+autoload -Uz bashcompinit && bashcompinit

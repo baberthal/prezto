@@ -62,11 +62,13 @@ path=(
   $HOME/.poetry/bin
   $HOME/{,s}bin(N)
   $HOME/.local/{,s}bin(N)
+  $HOME/.local/share/gem/ruby/3.0.0/bin
   $HOME/go/bin
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/local/{,s}bin(N)
   $path
 )
+
 
 #
 # Less

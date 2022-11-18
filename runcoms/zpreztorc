@@ -34,18 +34,19 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'editor' \
   'history' \
+  'archive' \
   'directory' \
   'spectrum' \
   'utility' \
   'history-substring-search' \
+  'tmux' \
+  'ssh' \
+  'rsync' \
   'prompt' \
   'git' \
+  'completion' \
   'jml-extra' \
-  'docker' \
-  'python' \
-  'ruby' \
-  'node' \
-  'completion'
+  'devenv'
 
 #
 # Autosuggestions
@@ -76,14 +77,14 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Allow the zsh prompt context to be shown.
-#zstyle ':prezto:module:editor' ps-context 'yes'
+zstyle ':prezto:module:editor' ps-context 'yes'
 
 #
 # Git
 #
 
 # Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
-# zstyle ':prezto:module:git:status:ignore' submodules 'all'
+zstyle ':prezto:module:git:status:ignore' submodules 'all'
 
 # Don't use the default aliases. So many, gosh!
 zstyle ':prezto:module:git:alias' skip 'yes'
@@ -166,6 +167,12 @@ zstyle ':prezto:module:prompt' theme 'jml'
 # zstyle ':prezto:module:prompt' show-return-val 'yes'
 
 #
+# Dev Environment
+#
+
+zstyle ':prezto:module:devenv' load-modules 'ruby' 'python' 'node'
+
+#
 # Python
 #
 
@@ -204,7 +211,7 @@ zstyle ':prezto:module:node:info:version' format '%v'
 #
 
 # Set the SSH identities to load into the agent.
-zstyle ':prezto:module:ssh:load' identities 'id_ed25519' 'github_rsa'
+zstyle ':prezto:module:ssh:load' identities 'id_ed25519' 'github_rsa' 'vtagz-stage'
 
 #
 # Syntax Highlighting
@@ -244,7 +251,7 @@ zstyle ':prezto:module:ssh:load' identities 'id_ed25519' 'github_rsa'
 # zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 
 # Set the terminal multiplexer title format.
-# zstyle ':prezto:module:terminal:multiplexer-title' format '%s'
+zstyle ':prezto:module:terminal:multiplexer-title' format '%s'
 
 #
 # Tmux
