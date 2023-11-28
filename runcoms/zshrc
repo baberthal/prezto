@@ -34,13 +34,19 @@ alias pipup="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip in
 alias pip3up="pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip3 install -U"
 
 # tmux aliases
-alias ta='tmux attach -t'
+function ta {
+  local args=$@
+  if [[ $# -ge 1 ]]; then
+    args="-t$args"
+  fi
+  tmux attach $args
+}
 alias ts='tmux new-session -s'
 alias tl='tmux list-sessions'
 alias tksv='tmux kill-server'
 alias tkss='tmux kill-session -t'
 
-alias getidf='. $HOME/esp/esp-idf/export.sh'
+alias initidf='. $HOME/esp/esp-idf/export.sh'
 
 unsetopt PUSHD_MINUS
 unsetopt AUTO_NAME_DIRS     # Don't set auto_name_dirs because it messes up prompts
@@ -50,12 +56,15 @@ if (( $+aliases[rdm] )); then
   unalias rdm
 fi
 
-if [[ -d "$(pyenv root 2>/dev/null)/plugins/pyenv-virtualenv" ]]; then
-  eval "$(pyenv virtualenv-init -)"
-fi
+# if [[ -d "$(pyenv root 2>/dev/null)/plugins/pyenv-virtualenv" ]]; then
+#   eval "$(pyenv virtualenv-init -)"
+# fi
 
 if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
-autoload -Uz bashcompinit && bashcompinit
+# autoload -Uz bashcompinit && bashcompinit
+
+eval "$(_PIO_COMPLETE=zsh_source pio)"
+eval "$(uv generate-shell-completion zsh)"
