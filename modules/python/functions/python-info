@@ -45,7 +45,7 @@ if [[ -n "$version_format" ]]; then
   fi
 
   if [[ -n "$version" && "$version" != "system" ]]; then
-    zformat -f version_formatted "$version_format" "v:$version"
+    zformat -f version_formatted "$version_format" "v:${version:h1}"
     python_info[version]="$version_formatted"
   fi
 fi

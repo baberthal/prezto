@@ -44,9 +44,9 @@ zstyle ':prezto:load' pmodule \
   'rsync' \
   'prompt' \
   'git' \
-  'completion' \
   'jml-extra' \
-  'devenv'
+  'devenv' \
+  'completion'
 
 #
 # Autosuggestions

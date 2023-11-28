@@ -113,18 +113,19 @@ function prompt_jml_precmd {
   _prompt_jml_devenv=''
 
   [[ -n "${python_info[version]}" ]] && _prompt_jml_devenv+="${python_info[version]}"
-  [[ -n "${python_info[virtualenv]}" ]] && _prompt_jml_devenv+="${python_info[virtualenv]}"
-
+  if [[ -n "${python_info[virtualenv]}" ]]; then
+    # add extra space if we have both version && virtualenv
+    [[ -n "${python_info[version]}" ]] && _prompt_jml_devenv+=" "
+    _prompt_jml_devenv+="${python_info[virtualenv]}"
+  fi
   if [[ -n "${ruby_info[version]}" ]]; then
     [[ -n "${_prompt_jml_devenv}" ]] && _prompt_jml_devenv+=' '
     _prompt_jml_devenv+="${ruby_info[version]}"
   fi
-
   if [[ -n "${node_info[version]}" ]]; then
     [[ -n "${_prompt_jml_devenv}" ]] && _prompt_jml_devenv+=' '
     _prompt_jml_devenv+="${node_info[version]}"
   fi
-
   if [[ -n "${_prompt_jml_devenv}" ]]; then
     _prompt_jml_devenv="[$_prompt_jml_devenv]"$'\n'
   fi
@@ -173,8 +174,8 @@ function prompt_jml_setup {
     # 'status' '%b %p %s%A%B%S%a%d%m%r%U%u'
 
   # Set python-info format
-  zstyle ':prezto:module:python:info:virtualenv' format '%f%F{3}(%v)%F{7}'
-  zstyle ':prezto:module:python:info:version' format '%f%F{3}%v%F{7}'
+  zstyle ':prezto:module:python:info:version' format '%f%F{3}%v%F{7}%f'
+  zstyle ':prezto:module:python:info:virtualenv' format '%f%F{3}(%v)%F{7}%f'
   # Set ruby-info format
   zstyle ':prezto:module:ruby:info:version' format '%F{1}%v%f'
   # Set node-info format
