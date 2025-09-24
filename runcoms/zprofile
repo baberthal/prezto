@@ -45,8 +45,9 @@ export KEYTIMEOUT=1
 export GPG_TTY=$(tty)
 export RUBY_CONFIGURE_OPTS="--enable-shared"
 export MAKEFLAGS="-j10"
-
+export JAVA_HOME="/usr/lib/jvm/java-25-openjdk"
 export AWS_REGION="us-west-2"
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 # bun completions

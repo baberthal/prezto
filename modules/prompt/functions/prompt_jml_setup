@@ -112,10 +112,10 @@ function prompt_jml_precmd {
 
   _prompt_jml_devenv=''
 
-  [[ -n "${python_info[version]}" ]] && _prompt_jml_devenv+="${python_info[version]}"
+  # [[ -n "${python_info[version]}" ]] && _prompt_jml_devenv+="${python_info[version]}"
   if [[ -n "${python_info[virtualenv]}" ]]; then
     # add extra space if we have both version && virtualenv
-    [[ -n "${python_info[version]}" ]] && _prompt_jml_devenv+=" "
+    # [[ -n "${python_info[version]}" ]] && _prompt_jml_devenv+=" "
     _prompt_jml_devenv+="${python_info[virtualenv]}"
   fi
   if [[ -n "${ruby_info[version]}" ]]; then
