@@ -58,7 +58,7 @@ typeset -gU cdpath fpath mailpath path
 if [[ -d $HOME/.bun ]]; then
   export BUN_INSTALL="$HOME/.bun"
   # bun completions
-  [ -s $HOME/.bun/_bun ] && source "$HOME/.bun/_bun"
+  [ -s $BUN_INSTALL/_bun ] && source "$BUN_INSTALL/_bun"
   path=($BUN_INSTALL/bin $path)
 fi
 
@@ -72,6 +72,11 @@ if [[ -d $HOME/go/bin ]]; then
   path=($path $HOME/go/bin)
 fi
 
+# rubygems on arch
+if [[ "$(uname -r)" == *arch* ]]; then
+  export GEM_HOME="$(gem env user_gemhome)"
+  path=($path $GEM_HOME/bin)
+fi
 
 # Set the list of directories that cd searches.
 # cdpath=(
