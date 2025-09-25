@@ -12,11 +12,11 @@
 
 if [[ -z "$BROWSER" && "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
-else
-  export BROWSER='google-chrome-stable'
+# else
+#   export BROWSER='google-chrome-stable'
 fi
 
-[[ -f "${HOME}/.env" ]] && . "${HOME}/.env"
+[[ -s "${HOME}/.env" ]] && . "${HOME}/.env"
 
 #
 # Editors
@@ -45,13 +45,7 @@ export KEYTIMEOUT=1
 export GPG_TTY=$(tty)
 export RUBY_CONFIGURE_OPTS="--enable-shared"
 export MAKEFLAGS="-j10"
-export JAVA_HOME="/usr/lib/jvm/java-25-openjdk"
 export AWS_REGION="us-west-2"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-# bun completions
-[ -s "${HOME}/.bun/_bun" ] && source "${HOME}/.bun/_bun"
 
 #
 # Paths
@@ -60,6 +54,25 @@ export BUN_INSTALL="$HOME/.bun"
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
+# bun
+if [[ -d $HOME/.bun ]]; then
+  export BUN_INSTALL="$HOME/.bun"
+  # bun completions
+  [ -s $HOME/.bun/_bun ] && source "$HOME/.bun/_bun"
+  path=($BUN_INSTALL/bin $path)
+fi
+
+# cargo/rust
+if [[ -d $HOME/.cargo/bin ]]; then
+  path=($HOME/.cargo/bin $path)
+fi
+
+# go
+if [[ -d $HOME/go/bin ]]; then
+  path=($path $HOME/go/bin)
+fi
+
+
 # Set the list of directories that cd searches.
 # cdpath=(
 #   $cdpath
@@ -67,12 +80,8 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  $BUN_INSTALL/bin
-  $HOME/.cargo/bin
   $HOME/{,s}bin(N)
   $HOME/.local/{,s}bin(N)
-  $HOME/.local/share/gem/ruby/3.0.0/bin
-  $HOME/go/bin
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/local/{,s}bin(N)
   $path
