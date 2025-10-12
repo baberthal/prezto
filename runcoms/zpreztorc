@@ -44,8 +44,8 @@ zstyle ':prezto:load' pmodule \
   'rsync' \
   'prompt' \
   'git' \
-  'jml-extra' \
-  'devenv' \
+  'python' \
+  'node' \
   'completion'
 
 #
@@ -169,8 +169,6 @@ zstyle ':prezto:module:prompt' theme 'jml'
 #
 # Dev Environment
 #
-
-zstyle ':prezto:module:devenv' load-modules 'ruby' 'python' 'node'
 
 #
 # Python

@@ -4,7 +4,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 setopt ALIAS_FUNC_DEF
-# setopt COMPLETEALIASES
+unsetopt AUTO_NAME_DIRS     # Don't set auto_name_dirs because it messes up prompts
+unsetopt PUSHD_MINUS
+
 export ZSH_ENABLE_COMPFIX=true
 
 (( $+TMUX )) && unset zle_bracketed_paste
@@ -40,30 +42,99 @@ alias tl='tmux list-sessions'
 alias tksv='tmux kill-server'
 alias tkss='tmux kill-session -t'
 
-alias initidf='. $HOME/esp/esp-idf/export.sh'
-
 alias echo_err='paplay /usr/share/sounds/Oxygen-K3B-Finish-Error.ogg'
 alias echo_done='paplay /usr/share/sounds/Oxygen-K3B-Finish-Success.ogg'
 
-unsetopt PUSHD_MINUS
-unsetopt AUTO_NAME_DIRS     # Don't set auto_name_dirs because it messes up prompts
+# Git Aliases
+alias g='git'
+# add (a)
+alias ga='git add'
+alias gaa='git add --all'
+# branch (b)
+alias gb='git branch'
+alias gba='git branch -a'
+# commit (c)
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+alias gcn!='git commit -v --no-edit --amend'
+alias gca='git commit -v -a'
+alias gca!='git commit -v -a --amend'
+alias gcan!='git commit -v -a --no-edit --amend'
+alias gcans!='git commit -v -a -s --no-edit --amend'
+alias gcam='git commit -a -m'
+alias gcmsg='git commit --message'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gcm='git checkout master || git checkout main || git checkout prime'
+alias gcr='git revert'
+alias gcR='git reset "HEAD^"'
+alias gcs='git show'
+# log (l)
+alias gl='git log --topo-order --pretty=format:"${_git_log_medium_format}"'
+alias gls='git log --topo-order --stat --pretty=format:"${_git_log_medium_format}"'
+alias gld='git log --topo-order --stat --patch --full-diff --pretty=format:"${_git_log_medium_format}"'
+alias glo='git log --topo-order --pretty=format:"${_git_log_oneline_format}"'
+alias glg='git log --topo-order --graph --pretty=format:"${_git_log_oneline_format}"'
+alias glb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
+alias glc='git shortlog --summary --numbered'
+alias glog='git log --oneline --decorate --graph'
+alias gloga='git log --oneline --decorate --graph --all'
+alias glp="_git_log_prettily"
+# push (p)
+alias gp='git push'
+alias ggpush='git push origin "$(git-branch-current 2> /dev/null)"'
+# alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
+alias ggpull='git pull origin "$(git-branch-current 2> /dev/null)"'
+# alias ggpnp='git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
+# rebase (rb)
+alias grb='git rebase'
+alias grbm='git rebase master'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbi='git rebase --interactive'
+alias grbs='git rebase --skip'
+# remote (r)
+alias gr='git remote'
+alias grl='git remote --verbose'
+alias grv='git remote --verbose'
+alias gra='git remote add'
+alias grrm='git remote remove'
+alias grmv='git remote rename'
+alias grup='git remote update'
+alias grp='git remote prune'
+alias grs='git remote show'
+alias grset='git remote set-url'
+alias grbrowse='git-hub-browse'
+# reset (r)
+alias grh='git reset HEAD'
+alias grhh='git reset HEAD --hard'
+alias gru='git reset --'
+# status
+alias gsb='git status -sb'
+alias gss='git status -s'
+alias gst='git status'
+
+if [[ -f "${HOME}/.claude/local/claude" ]]; then
+  alias claude="${HOME}/.claude/local/claude"
+fi
+
+if [[ -s "${HOME}/esp/esp-idf/export.sh" ]]; then
+  alias initidf='. $HOME/esp/esp-idf/export.sh'
+fi
 
 # This mashes the rtags daemon
 if (( $+aliases[rdm] )); then
   unalias rdm
 fi
 
-# if [[ -d "$(pyenv root 2>/dev/null)/plugins/pyenv-virtualenv" ]]; then
-#   eval "$(pyenv virtualenv-init -)"
-# fi
-
 if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
-# autoload -Uz bashcompinit && bashcompinit
+if (( $+commands[pio] )); then
+  eval "$(_PIO_COMPLETE=zsh_source pio)"
+fi
 
-eval "$(_PIO_COMPLETE=zsh_source pio)"
-eval "$(uv generate-shell-completion zsh)"
-
-alias claude="${HOME}/.claude/local/claude"
+if (( $+commands[uv] )); then
+  eval "$(uv generate-shell-completion zsh)"
+fi
