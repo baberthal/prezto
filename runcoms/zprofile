@@ -16,8 +16,6 @@ if [[ -z "$BROWSER" && "$OSTYPE" == darwin* ]]; then
 #   export BROWSER='google-chrome-stable'
 fi
 
-[[ -s "${HOME}/.env" ]] && . "${HOME}/.env"
-
 #
 # Editors
 #

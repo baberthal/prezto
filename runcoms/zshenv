@@ -5,7 +5,15 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export $(dbus-launch)
+if (( $+commands[dbus-launch] )); then
+  export $(dbus-launch)
+fi
+
+if [[ -s "${HOME}/.env" ]]; then
+  source "${HOME}/.env"
+fi
+
+export DOCKER_BUILDKIT=0
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then

@@ -198,7 +198,7 @@ function prompt_jml_setup {
   # Define prompts.
   #
   PROMPT='${SSH_TTY:+"%B%F{3}%n%b%f %B%F{7}@%f%b %B%F{4}%M%b%f "}%f%b${_prompt_jml_devenv}%f%b'
-  PROMPT+='%F{%(!.1.6)}${_prompt_jml_pwd}%(!. %B%F{1}#%f%b.)%f%b ${editor_info[keymap]} '
+  PROMPT+='%F{%(!.3.6)}${_prompt_jml_pwd}%(!. %B%F{1}#%f%b.)%f%b ${editor_info[keymap]} '
   RPROMPT='${editor_info[overwrite]}%(?:: %F{3}'
   RPROMPT+=${show_return}
   RPROMPT+='%f)${VIM:+" %B%F{6}V%f%b"}${_prompt_jml_git}'
